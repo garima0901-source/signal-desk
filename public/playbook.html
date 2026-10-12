@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Desk Playbook</title>
+<meta name="description" content="How a GTM Associate team turns public registry signals into qualified pipeline when selling AI to private equity, venture and advisory firms.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f4e79'/%3E%3Cpath d='M5 16l4-5 3 3 4-6 3 4' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="var(--accent)"/><path d="M5 16l4-5 3 3 4-6 3 4" stroke="var(--accent-ink)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Signal Desk</span></a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="./">Signal feed</a>
+      <a href="playbook.html" aria-current="page">GTM playbook</a>
+      <a href="method.html">Method &amp; sources</a>
+    </nav>
+    <button class="theme-btn" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="kicker">Playbook · selling AI research tools to finance</div>
+    <h1>From registry signal to qualified pipeline.</h1>
+    <p class="lede">The operating model for a GTM Associate team selling an AI research and analysis platform to private equity, venture, infrastructure and advisory firms in the UK. It covers who to target and when, what to say, how to qualify, and how the team runs week to week. The volumes come from the live feed. Everything else is a template or an input you can adjust, and each one is labelled.</p>
+    <nav class="toc" aria-label="On this page">
+      <a href="#why">Why signals</a><a href="#tiers">Targeting &amp; tiers</a><a href="#planner">Coverage planner</a><a href="#personas">Buyers</a><a href="#plays">Plays &amp; sequences</a><a href="#qualify">Qualification</a><a href="#team">Team operating system</a><a href="#crm">CRM standards</a><a href="#plan">30 / 60 / 90</a>
+    </nav>
+  </div>
+
+  <section class="block" id="why">
+    <div class="wrap grid2">
+      <div class="prose">
+        <h2>Why build outbound on signals</h2>
+        <p>Firms that run deals buy tools when the workload is about to grow. A new fund means a deployment period is starting. A new acquisition stack means a deal is being signed, and the portfolio work comes next. A new firm or advisory boutique means a team setting up its tools for the first time.</p>
+        <p>The UK register records each of these events as soon as the entity is formed, usually before any press release. Reaching a firm in that window means a GTM Associate is contacting someone who has a reason to talk now, not a list name with no context.</p>
+        <p>The method is simple: <b>signal → sponsor → persona → play</b>. The register supplies the first step. The associate's research, done in a fixed way, supplies the rest.</p>
+      </div>
+      <div class="card">
+        <h3>Last 12 months, from the feed</h3>
+        <div id="why-stats" class="muted">Loading…</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="tiers">
+    <div class="wrap">
+      <div class="head"><div><h2>Targeting: fit × timing tiers</h2><p class="sub">Each signal gets a tier from rules anyone on the team can apply the same way. Counts are live from the last 12 months of the feed.</p></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tier</th><th>Rule (applied to the feed)</th><th>Why it ranks here</th><th class="num">Entities</th><th>Handling</th></tr></thead>
+          <tbody id="tier-rows"><tr><td colspan="5" class="muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="muted" style="margin-top:8px;font-size:13px">Tiers are only a starting point. Before anything is sequenced, an associate confirms the sponsor through the entity's officers and persons with significant control on Companies House and the firm's own website.</p>
+    </div>
+  </section>
+
+  <section class="block" id="planner">
+    <div class="wrap">
+      <div class="head"><div><h2>Coverage planner</h2><p class="sub">How many associates the signal volume supports. Signal volumes are real (monthly average over the last 12 months). Every other figure is an <span class="assume">assumption</span>: set it from the team's own baseline.</p></div></div>
+      <div class="planner">
+        <div class="card inputs">
+          <label for="p-region">Region</label>
+          <select id="p-region"><option value="London">London</option><option value="all">All UK</option><option value="Edinburgh">Edinburgh</option></select>
+          <label>Signal types in scope</label>
+          <div class="chips" id="p-types" style="margin:0"></div>
+          <label for="p-fit"><span class="assume">Assumption</span> · % of signals that turn into a researchable target account</label>
+          <input type="number" id="p-fit" min="1" max="100" value="40">
+          <label for="p-heads"><span class="assume">Assumption</span> · Associates on the team</label>
+          <input type="number" id="p-heads" min="1" max="50" value="4">
+          <label for="p-cap"><span class="assume">Assumption</span> · New signal accounts each associate researches and sequences per week</label>
+          <input type="number" id="p-cap" min="1" max="200" value="15">
+          <label for="p-mtg"><span class="assume">Assumption</span> · % of sequenced accounts that book a first meeting</label>
+          <input type="number" id="p-mtg" min="0" max="100" step="0.5" value="5">
+        </div>
+        <div class="card" id="p-out"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="personas">
+    <div class="wrap">
+      <div class="head"><div><h2>Who we sell to</h2><p class="sub">Buying roles at a mid-market sponsor or advisory boutique, what their week involves, and what each one needs to see.</p></div></div>
+      <div class="grid3">
+        <div class="card persona"><h3>Analyst / Associate</h3><small>PE, VC, infrastructure, corporate finance</small>
+          <dl><dt>Their week</dt><dd>Screening information memoranda, building comps and market maps, first drafts of investment committee papers, pulling data from filings and data rooms.</dd>
+          <dt>Where AI helps</dt><dd>First drafts, document Q&amp;A across a data room, comps and precedent pulls, every answer with a source they can click.</dd>
+          <dt>Role in the deal</dt><dd>Daily user and most likely champion.</dd>
+          <dt>Typical objection</dt><dd>“I can’t put a number in front of a VP unless I know where it came from.”</dd>
+          <dt>Proof they need</dt><dd>Cited output on a document they already know well.</dd></dl></div>
+        <div class="card persona"><h3>VP / Principal</h3><small>Runs the deal process</small>
+          <dl><dt>Their week</dt><dd>Running live processes, reviewing junior work, managing advisers and lenders, preparing for investment committee.</dd>
+          <dt>Where AI helps</dt><dd>Faster turnaround on first drafts and less time spent reviewing them; more processes covered per team.</dd>
+          <dt>Role in the deal</dt><dd>Influencer and often the person who sponsors a pilot.</dd>
+          <dt>Typical objection</dt><dd>“Doing the work is how juniors learn.”</dd>
+          <dt>Proof they need</dt><dd>Review time saved on a live workstream, with quality unchanged.</dd></dl></div>
+        <div class="card persona"><h3>Partner / MD</h3><small>Origination and investment committee</small>
+          <dl><dt>Their week</dt><dd>Sourcing, relationships, investment committee decisions, fundraising and LP updates.</dd>
+          <dt>Where AI helps</dt><dd>Covering more of the market with the same team; consistent, faster investment committee preparation.</dd>
+          <dt>Role in the deal</dt><dd>Economic buyer at most mid-market firms.</dd>
+          <dt>Typical objection</dt><dd>“Our deal data can’t leave our control.”</dd>
+          <dt>Proof they need</dt><dd>A clear security position and a peer firm’s experience.</dd></dl></div>
+        <div class="card persona"><h3>COO / CFO / Head of Operations</h3><small>Owns vendors, risk and budget</small>
+          <dl><dt>Their week</dt><dd>Fund operations, compliance, vendor management, IT and security.</dd>
+          <dt>Where AI helps</dt><dd>One governed tool instead of staff pasting deal data into general chatbots.</dd>
+          <dt>Role in the deal</dt><dd>Gatekeeper on the paper process and security review.</dd>
+          <dt>Typical objection</dt><dd>“We don’t have capacity for another security review.”</dd>
+          <dt>Proof they need</dt><dd>Security documentation, a data processing agreement, and access controls that respect information barriers.</dd></dl></div>
+        <div class="card persona"><h3>Founding partner, new firm</h3><small>Spin-outs and new managers</small>
+          <dl><dt>Their week</dt><dd>Raising the first fund, hiring, setting up operations, and still doing deals themselves.</dd>
+          <dt>Where AI helps</dt><dd>Research capacity of a larger firm before hiring the team to match.</dd>
+          <dt>Role in the deal</dt><dd>User, champion and buyer in one person, so cycles are short.</dd>
+          <dt>Typical objection</dt><dd>“We’re not ready yet; fund one first.”</dd>
+          <dt>Proof they need</dt><dd>Fast time to value on the fundraising and pipeline work they are doing right now.</dd></dl></div>
+        <div class="card persona"><h3>Director, advisory boutique</h3><small>Corporate finance, M&amp;A, debt advisory</small>
+          <dl><dt>Their week</dt><dd>Pitches, information memoranda, buyer and lender lists, running sale processes with lean teams.</dd>
+          <dt>Where AI helps</dt><dd>Pitch and memorandum drafting, buyer universe research, process Q&amp;A.</dd>
+          <dt>Role in the deal</dt><dd>Buyer and user; the firm’s founder often signs.</dd>
+          <dt>Typical objection</dt><dd>“Our clients expect partner-level judgement, not software.”</dd>
+          <dt>Proof they need</dt><dd>The same partner judgement with more of the groundwork done for them.</dd></dl></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="plays">
+    <div class="wrap">
+      <div class="head"><div><h2>Plays: signal → angle → sequence</h2><p class="sub">One play per signal type. The messages are <b>templates</b>, and anything in [brackets] is filled in from the associate's research.</p></div></div>
+      <div class="note" style="margin-bottom:16px"><b>Ground rule:</b> never open with “I saw your Companies House filing.” The filing is a reason to look, not something to say. Reference a fund or deal by name only once it is public on the firm’s website or in the press. Otherwise, the timing does the work and the message stays about the buyer’s workflow.</div>
+      <div id="plays-list"></div>
+    </div>
+  </section>
+
+  <section class="block" id="qualify">
+    <div class="wrap">
+      <div class="head"><div><h2>Qualification: MEDDICC for selling AI into finance</h2><p class="sub">What each letter means at a 30-person private equity firm. An associate hands an opportunity to an account executive only when the fields marked ● are captured.</p></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Element</th><th>What it looks like here</th><th>Questions associates ask</th><th>Handoff</th></tr></thead>
+          <tbody>
+            <tr><td><b>Metrics</b></td><td>Hours per investment committee paper or memorandum screen; deals screened per month; turnaround on first drafts.</td><td>“How many memoranda did the team look at last quarter? How long does a first-pass screen take?”</td><td>●</td></tr>
+            <tr><td><b>Economic buyer</b></td><td>Managing partner or COO at mid-market; head of innovation or the business COO at larger banks.</td><td>“Who signs off on new tools for the deal team?”</td><td>Named</td></tr>
+            <tr><td><b>Decision criteria</b></td><td>Accuracy with citations, data security and residency, access controls that respect information barriers, connections to the data sources they already use.</td><td>“What would a tool need to prove before anyone used it on a live deal?”</td><td>●</td></tr>
+            <tr><td><b>Decision process</b></td><td>Pilot with one deal team → security and compliance review → partner sign-off.</td><td>“Last time you brought in a tool, what were the steps?”</td><td>Outline</td></tr>
+            <tr><td><b>Paper process</b></td><td>Master agreement, data processing agreement under UK GDPR; outsourcing rules for FCA-regulated firms (<a href="https://handbook.fca.org.uk/handbook/sysc8">SYSC 8</a>); for EU entities, ICT third-party rules under <a href="https://eur-lex.europa.eu/eli/reg/2022/2554/oj">DORA</a>.</td><td>“Is the firm FCA-authorised? Who runs vendor due diligence?”</td><td>Later</td></tr>
+            <tr><td><b>Identify pain</b></td><td>Work that piles up when deal flow peaks; juniors stretched across processes; general chatbots used without controls.</td><td>“Where does the team lose evenings during a live process?”</td><td>●</td></tr>
+            <tr><td><b>Champion</b></td><td>An associate or VP who would use it daily and wants the credit for bringing it in.</td><td>“Who on the team would try this first?”</td><td>●</td></tr>
+            <tr><td><b>Competition</b></td><td>The status quo (analysts plus spreadsheets), general AI assistants, and other finance-specific tools.</td><td>“What are people using today, officially or not?”</td><td>Noted</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="team">
+    <div class="wrap">
+      <div class="head"><div><h2>Team operating system</h2><p class="sub">How a GTM Associate team runs: the weekly rhythm, the research standard, onboarding new associates, and how calls are reviewed.</p></div></div>
+      <div class="grid2">
+        <div class="card prose">
+          <h3>Weekly rhythm</h3>
+          <ul>
+            <li><b>Monday:</b> signal triage. New register entries (monthly) and news are split up by tier and territory; check for duplicates against the CRM.</li>
+            <li><b>Tuesday–Thursday:</b> protected research and sequencing blocks in the morning, calls in the afternoon.</li>
+            <li><b>Thursday:</b> marketing sync on campaigns and inbound routing.</li>
+            <li><b>Friday:</b> one recorded call reviewed as a team, pipeline review against exit criteria, and next week's targets agreed.</li>
+          </ul>
+          <h3 style="margin-top:16px">Signal-to-sequence standard</h3>
+          <ol>
+            <li>Open the entity on Companies House; note officers and persons with significant control.</li>
+            <li>Identify the sponsor firm and match it against the CRM.</li>
+            <li>Tier it with the rules above and pick the play.</li>
+            <li>Find 2–3 people across personas, not just one.</li>
+            <li>Write a first line about their workflow, not the filing.</li>
+            <li>Log the signal type, date and source URL on the account.</li>
+          </ol>
+        </div>
+        <div class="card prose">
+          <h3>Onboarding: first 8 weeks</h3>
+          <ul>
+            <li><b>Weeks 1–2:</b> product certification; learn the deal process end to end (sourcing → screening → diligence → investment committee → closing → 100-day plan); shadow 10 calls; build 20 accounts from the feed.</li>
+            <li><b>Weeks 3–4:</b> first sequences live; manager reviews every first line before sending; first two discovery calls with manager support.</li>
+            <li><b>Weeks 5–6:</b> full weekly sequencing target; runs discovery calls alone; call reviews twice a week.</li>
+            <li><b>Weeks 7–8:</b> qualification certification (a mock call scored on the rubric); handoffs to account executives without manager review.</li>
+          </ul>
+          <h3 style="margin-top:16px">Call review rubric</h3>
+          <table class="rubric" style="font-size:13px">
+            <tbody>
+              <tr><td>Opening</td><td>Gives a specific, workflow-based reason for the call within 20 seconds.</td></tr>
+              <tr><td>Discovery</td><td>Learns the workflow, volumes and who is involved before pitching.</td></tr>
+              <tr><td>Qualification</td><td>Captures the handoff fields (Metrics, Pain, Champion, Decision criteria).</td></tr>
+              <tr><td>Objections</td><td>Handles security and accuracy questions with specifics, not reassurance.</td></tr>
+              <tr><td>Next step</td><td>Ends with a date, attendees and an agenda.</td></tr>
+            </tbody>
+          </table>
+          <p class="muted" style="font-size:13px;margin-top:8px">Scored 1–4 on each. A call that scores 15 or more out of 20 goes into the team's library of good examples.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="crm">
+    <div class="wrap">
+      <div class="head"><div><h2>CRM standards</h2><p class="sub">Without clean fields, pipeline metrics can't be trusted. These are the minimum required, plus the exit criteria for each stage.</p></div></div>
+      <div class="grid2">
+        <div class="table-wrap"><table>
+          <thead><tr><th>Required field</th><th>Values</th></tr></thead>
+          <tbody>
+            <tr><td>Signal type</td><td>Fund LP · GP/carry · Deal vehicle · Manager · Advisory · Inbound · Other</td></tr>
+            <tr><td>Signal date</td><td>Date of registration or the news item</td></tr>
+            <tr><td>Signal source</td><td>Companies House or news URL</td></tr>
+            <tr><td>Sponsor group</td><td>Parent firm for any fund or deal entity</td></tr>
+            <tr><td>Tier</td><td>A · B · C, from the rules above</td></tr>
+            <tr><td>Play</td><td>Which play the sequence used</td></tr>
+            <tr><td>Persona</td><td>Per contact</td></tr>
+            <tr><td>Next step date</td><td>Required on every open record</td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Stage</th><th>Exit criteria</th></tr></thead>
+          <tbody>
+            <tr><td>Researched</td><td>Sponsor confirmed; 2+ contacts across personas; tier and play set</td></tr>
+            <tr><td>Sequenced</td><td>Sequence live with a personalised first line</td></tr>
+            <tr><td>Engaged</td><td>Reply or call connected</td></tr>
+            <tr><td>Meeting booked</td><td>Date, attendees and agenda sent</td></tr>
+            <tr><td>Qualified</td><td>Metrics, Pain, Champion and Decision criteria captured</td></tr>
+            <tr><td>Handed off</td><td>Account executive accepts within 2 working days, or returns it with a reason</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>Weekly scorecard</h3>
+        <p class="muted" style="font-size:14px">The definitions are fixed. The targets are <span class="assume">inputs</span>: set them after 4 weeks of baseline data instead of borrowing someone else's benchmarks.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Metric</th><th>Definition</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td>Signal accounts researched</td><td>Accounts moved to Researched this week</td><td>Leading indicator; capacity check</td></tr>
+            <tr><td>Signal-to-touch time</td><td>Median days from signal date to first touch</td><td>The whole idea relies on timing</td></tr>
+            <tr><td>Reply rate by play</td><td>Replies ÷ sequenced, per play</td><td>Shows which angles to keep or retire</td></tr>
+            <tr><td>Meetings held</td><td>First meetings that happened (not booked)</td><td>Output the account executives can feel</td></tr>
+            <tr><td>Qualified handoff rate</td><td>Accepted handoffs ÷ meetings held</td><td>Quality of qualification</td></tr>
+            <tr><td>Pipeline by signal type</td><td>Qualified pipeline value, split by signal type</td><td>Proves (or disproves) the signal approach</td></tr>
+            <tr><td>CRM completeness</td><td>% of open records with all required fields</td><td>Without it, nothing above can be trusted</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="plan">
+    <div class="wrap">
+      <div class="head"><h2>30 / 60 / 90 days as GTM Manager</h2></div>
+      <div class="grid3">
+        <div class="card prose"><h3>Days 1–30 · Learn and measure</h3><ul>
+          <li>Ride along on calls with every associate and two account executives; take the product certification.</li>
+          <li>Audit the CRM against the required fields; set the baseline for each scorecard metric.</li>
+          <li>Map current outbound: sequences, reply rates by message, and where the pipeline comes from.</li>
+          <li>Run the signal feed alongside existing lists as a test with one associate.</li>
+        </ul></div>
+        <div class="card prose"><h3>Days 31–60 · Standardise</h3><ul>
+          <li>Roll out the signal-to-sequence standard, the call review rubric and the stage exit criteria.</li>
+          <li>Rebuild sequences by play; retire messages with the lowest reply rates.</li>
+          <li>Agree the qualification bar and handoff standard with the account executives.</li>
+          <li>Set up the marketing sync and inbound routing rules.</li>
+        </ul></div>
+        <div class="card prose"><h3>Days 61–90 · Scale</h3><ul>
+          <li>Set scorecard targets from the baseline; weekly reviews run on the dashboard.</li>
+          <li>Write the onboarding plan and hiring profile for the next associates.</li>
+          <li>Report pipeline by signal type and keep investing where it converts.</li>
+          <li>Extend coverage beyond London and plan EMEA expansion.</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Signal volumes: <a href="https://download.companieshouse.gov.uk/en_output.html">Companies House Free Company Data Product</a>, Open Government Licence v3.0. The rest of this page is a proposed operating model: message templates and labelled assumptions, not reported results.</div>
+    <div>An independent project, not affiliated with Companies House or any company listed.</div>
+  </div>
+</footer>
+<script src="assets/common.js"></script>
+<script src="assets/playbook.js"></script>
+</body>
+</html>

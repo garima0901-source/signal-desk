@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Desk Method</title>
+<meta name="description" content="Data source, classification rules, limitations and refresh process behind Signal Desk.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f4e79'/%3E%3Cpath d='M5 16l4-5 3 3 4-6 3 4' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="var(--accent)"/><path d="M5 16l4-5 3 3 4-6 3 4" stroke="var(--accent-ink)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Signal Desk</span></a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="./">Signal feed</a>
+      <a href="playbook.html">GTM playbook</a>
+      <a href="method.html" aria-current="page">Method &amp; sources</a>
+    </nav>
+    <button class="theme-btn" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="kicker">Method &amp; sources</div>
+    <h1>Where the data comes from and how it is classified.</h1>
+    <p class="lede">Every entity in the feed is a real Companies House record and links to its official page. This page sets out every rule used to classify entities, along with what the data can't tell you.</p>
+  </div>
+
+  <section class="block">
+    <div class="wrap prose">
+      <h2>Source</h2>
+      <p>The <a href="https://download.companieshouse.gov.uk/en_output.html">Companies House Free Company Data Product</a> is a free monthly snapshot of the basic details of every live entity on the UK register, published as CSV. No account or API key is needed. Companies House updates it within five working days of each month end.</p>
+      <p id="meta-line" class="note">Loading snapshot details…</p>
+      <p>Fields used: company name, number, legal form (category), incorporation date, registered office post town and postcode, up to four SIC codes, and the number of limited partners (for limited partnerships).</p>
+      <p>Licence: contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap prose">
+      <h2>Classification rules</h2>
+      <p>Each entity registered in the window is tested against these rules in order. The first match decides its type. Entities that match none are left out.</p>
+      <ol>
+        <li><b>Fund partnership:</b> the legal form is <i>Limited Partnership</i>. Partnerships carry no SIC codes on the register, so the legal form is the signal.</li>
+        <li><b>Deal vehicle:</b> the name contains the word BIDCO, MIDCO or TOPCO.</li>
+        <li><b>GP, carry or co-invest entity:</b> the name contains GENERAL PARTNER, CARRY, CARRIED INTEREST, CO-INVEST(MENT), FEEDER, FOUNDER PARTNER, MANAGING MEMBER or SLP, or contains GP as a fund suffix (after the first word and followed by a legal suffix, a bracket, a numeral or the end of the name). Names suggesting medical practices (surgery, practice, medical, health, clinic, locum) or cash-and-carry businesses are excluded.</li>
+        <li><b>New manager or investment firm:</b> an LLP, or a company with SIC code 66300 (Fund management activities), 64303 (Activities of venture and development capital companies), 64304 (Activities of open-ended investment companies) or 64301 (Activities of investment trusts), <i>and</i> a name containing CAPITAL, EQUITY, VENTURES, INVESTORS, ASSET / INVESTMENT / FUND MANAGEMENT, PRIVATE CREDIT, CREDIT PARTNERS, INVESTMENT PARTNERS, INVESTMENT ADVISORS or GROWTH PARTNERS. Names with PROPERTY, HOMES, ESTATES, LETTINGS, CONSTRUCTION or BUILDERS are excluded.</li>
+        <li><b>New advisory boutique:</b> a company with SIC code 66190 (Activities auxiliary to financial intermediation n.e.c.), 70221 (Financial management), 64999 (Financial intermediation not elsewhere classified), 66120 (Security and commodity contracts dealing activities), 64991 (Security dealing on own account) or 64205 (Activities of financial services holding companies), <i>and</i> a name containing CORPORATE FINANCE, M&amp;A, MERGERS, TRANSACTION ADVISORY, CAPITAL ADVISORS/ADVISERS, CAPITAL MARKETS ADVISORS, INVESTMENT BANK(ING) or DEBT ADVISORY.</li>
+      </ol>
+      <h3>Sponsor groups</h3>
+      <p>Fund, GP and deal entities from the last 12 months are grouped by a name stem: the first one or two words before a structural word (GP, LP, FUND, CARRY, BIDCO, LIMITED…), a roman numeral or a number. For example, “ICON INFRASTRUCTURE PARTNERS VII, L.P.” has the stem “ICON INFRASTRUCTURE”. Stems made only of generic words (CAPITAL, PARTNERS, GLOBAL…) are not grouped. A group needs at least two entities.</p>
+      <h3>Regions</h3>
+      <p>Based on the registered-office postcode: London (EC, WC, E, N, NW, SE, SW, W districts), Edinburgh (EH), Channel Islands &amp; Isle of Man (GY, JE, IM), otherwise Rest of UK. A registered office is often a law firm or administrator, not where the team works.</p>
+      <p>The full rules are in the project source: <code>scripts/rules.js</code>.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap prose">
+      <h2>Limitations</h2>
+      <ul>
+        <li><b>Live entities only.</b> The snapshot drops anything dissolved, so older months in the trend can be slightly undercounted.</li>
+        <li><b>Names are a heuristic.</b> Name rules catch most fund and deal structures but not all. Some matches are false positives, and structures with neutral names are missed.</li>
+        <li><b>SIC codes are self-declared</b> by whoever registers the company, and many small or personal vehicles choose finance codes.</li>
+        <li><b>Registration is not an announcement.</b> A new partnership does not mean a fund has closed, and a BidCo does not mean a deal has completed. Treat each as a reason to research, not a fact to quote.</li>
+        <li><b>No officer data.</b> The free snapshot leaves out officers and persons with significant control. Sponsors are confirmed manually on each entity's Companies House page.</li>
+        <li><b>Name stems can merge unrelated firms</b> that share their first words, and can split one sponsor whose entities are named differently.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap prose">
+      <h2>Refresh</h2>
+      <p>A scheduled job downloads each month's snapshot, re-runs the rules and republishes the data file. No API keys are involved at any step.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Contains public sector information licensed under the Open Government Licence v3.0. An independent project, not affiliated with Companies House or any company listed.</div>
+  </div>
+</footer>
+<script src="assets/common.js"></script>
+<script>
+SD.load().then(d => {
+  const m = d.meta;
+  document.getElementById('meta-line').innerHTML =
+    `Current build: snapshot dated <b>${SD.date(m.snapshotDate)}</b>; ${SD.fmt(m.scanned)} register entries scanned; ` +
+    `${SD.fmt(m.matched)} signals registered ${SD.date(m.trendFrom)} – ${SD.date(new Date(Date.parse(m.until) - 864e5).toISOString().slice(0, 10))}; ` +
+    `the feed shows the ${SD.fmt(d.feed.length)} from the last 12 months.`;
+}).catch(() => { document.getElementById('meta-line').textContent = 'Could not load snapshot details.'; });
+</script>
+</body>
+</html>

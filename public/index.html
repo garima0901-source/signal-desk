@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Desk</title>
+<meta name="description" content="A monthly feed of new UK fund partnerships, GP and carry entities, BidCo/MidCo/TopCo deal vehicles and new investment firms, built from Companies House open data.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231f4e79'/%3E%3Cpath d='M5 16l4-5 3 3 4-6 3 4' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="var(--accent)"/><path d="M5 16l4-5 3 3 4-6 3 4" stroke="var(--accent-ink)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Signal Desk</span></a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="./" aria-current="page">Signal feed</a>
+      <a href="playbook.html">GTM playbook</a>
+      <a href="method.html">Method &amp; sources</a>
+    </nav>
+    <button class="theme-btn" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="kicker">UK private markets · official register data</div>
+    <h1>Who is launching funds and setting up deals, straight from Companies House.</h1>
+    <p class="lede">Each month, thousands of new entities are registered in the UK. A few of them are fund partnerships, general-partner and carry vehicles, and BidCo/MidCo/TopCo acquisition stacks. Those are early, public signs that a fund is raising or a deal is underway. This feed pulls them out of the register and makes them easy to browse.</p>
+    <span class="stamp" id="stamp">Loading data…</span>
+  </div>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head"><h2>Last 12 months at a glance</h2><span class="muted" id="kpi-range"></span></div>
+      <div class="kpis" id="kpis"></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <div><h2>Monthly registrations</h2><p class="sub">New entities each month, by signal type. Click a bar to filter the feed to that month.</p></div>
+        <div class="chips" id="trend-region" role="group" aria-label="Region">
+          <button class="chip" data-r="all" aria-pressed="true">All UK</button>
+          <button class="chip" data-r="London" aria-pressed="false">London</button>
+          <button class="chip" data-r="Edinburgh" aria-pressed="false">Edinburgh</button>
+        </div>
+      </div>
+      <div class="card chart"><div id="trend"></div><div class="legend" id="legend"></div></div>
+      <p class="muted" style="margin-top:8px;font-size:13px">The snapshot lists live entities only. Anything dissolved since it was registered is gone, so older months may be slightly undercounted.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head">
+        <div><h2>Sponsors building structures</h2><p class="sub">Groups of two or more fund, GP or deal entities registered in the last 12 months that share a name stem, which usually means one sponsor building one fund or deal. Click a group to see its entities.</p></div>
+      </div>
+      <div class="families" id="families"></div>
+      <p style="margin-top:10px"><button class="btn" id="more-fam">Show more groups</button></p>
+    </div>
+  </section>
+
+  <section class="block" id="feed-section">
+    <div class="wrap">
+      <div class="head"><h2>The feed</h2><span class="muted" id="count"></span></div>
+      <div class="chips" id="type-chips" role="group" aria-label="Signal types"></div>
+      <div class="filters">
+        <div><label for="q">Search name or postcode</label><input type="search" id="q" placeholder="e.g. BIDCO, CAPITAL IV, EC2"></div>
+        <div><label for="region">Region</label><select id="region"><option value="">All regions</option></select></div>
+        <div><label for="month">Month</label><select id="month"><option value="">All 12 months</option></select></div>
+        <div><label for="sort">Sort</label><select id="sort"><option value="new">Newest first</option><option value="lp">Most limited partners</option><option value="name">Name A–Z</option></select></div>
+        <div><button class="btn" id="export">Export CSV</button></div>
+      </div>
+      <div class="chips"><button class="chip" id="fam-only" aria-pressed="false">Only entities in a sponsor group</button><button class="chip" id="clear" aria-pressed="false">Clear filters</button></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Registered</th><th>Entity</th><th>Signal</th><th class="hide-sm">Legal form</th><th class="hide-sm">Location</th><th class="num" title="Limited partners on the register (partnerships only)">LPs</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="pager"><span id="page-info"></span><span><button class="btn" id="prev">← Prev</button> <button class="btn" id="next">Next →</button></span></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="head"><h2>What each signal means</h2></div>
+      <div class="grid3" id="glossary"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Data: <a href="https://download.companieshouse.gov.uk/en_output.html">Companies House Free Company Data Product</a>. Contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</div>
+    <div>An independent project, not affiliated with Companies House or any company listed. Signal types come from name and register-field rules, listed in full on the <a href="method.html">Method</a> page. Check any entity on its Companies House page before acting on it.</div>
+  </div>
+</footer>
+<div class="tip" id="tip"></div>
+<script src="assets/common.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
